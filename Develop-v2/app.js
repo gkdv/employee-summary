@@ -13,11 +13,62 @@ const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+inquirer.prompt([
+    {
+        type: "list",
+        message: "What is your position in the company",
+        name: "position",
+        choices: ['Intern', 'Engineer', 'Manager', 'Employee']
+    },
+    {
+        type: "input",
+        message: "What is your ID number?",
+        name: "ID"
+    },
+    {
+        type: "input",
+        message: "What is your email?",
+        name: "email"
+    }
+]).then(answers => {
+    console.log(answers)
+    switch (answers.position) {
+        case 'Intern':
+            inquirer.prompt([
+                {
+                    type: "input",
+                    message: "Which school do you go to?",
+                    name: "school"
+                }
+            ])
+            break;
+        case 'Engineer':
+            inquirer.prompt([
+                {
+                    type: "input",
+                    message: "What is your github name?",
+                    name: "github-name"
+                }
+            ])
+            break;
+        case 'Manager':
+            inquirer.prompt([
+                {
+                    type: "input",
+                    message: "What is your office number?",
+                    name: "office-number"
+                }
+            ])
+    }
+}).then((answers) => {
+    console.log(answers)
+})
+
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
-
+// render(answers);
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
 // `output` folder. You can use the variable `outputPath` above target this location.
