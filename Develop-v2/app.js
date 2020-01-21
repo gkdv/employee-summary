@@ -13,56 +13,80 @@ const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
-inquirer.prompt([
-    {
-        type: "list",
-        message: "What is your position in the company",
-        name: "position",
-        choices: ['Intern', 'Engineer', 'Manager', 'Employee']
-    },
-    {
-        type: "input",
-        message: "What is your ID number?",
-        name: "ID"
-    },
-    {
-        type: "input",
-        message: "What is your email?",
-        name: "email"
-    }
-]).then(answers => {
-    console.log(answers)
-    switch (answers.position) {
-        case 'Intern':
-            inquirer.prompt([
-                {
-                    type: "input",
-                    message: "Which school do you go to?",
-                    name: "school"
-                }
-            ])
-            break;
-        case 'Engineer':
-            inquirer.prompt([
-                {
-                    type: "input",
-                    message: "What is your github name?",
-                    name: "github-name"
-                }
-            ])
-            break;
-        case 'Manager':
-            inquirer.prompt([
-                {
-                    type: "input",
-                    message: "What is your office number?",
-                    name: "office-number"
-                }
-            ])
-    }
-}).then((answers) => {
-    console.log(answers)
-})
+var teamName = [];
+var employeeCards = [];
+function myTeamName() {
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "What is your team name?",
+            name: "team-name"
+        }
+    ]).then(answer => {
+        teamName.push(answer)
+        employeeType();
+    })
+}
+function employeeType() {
+    inquirer.prompt([
+        {
+            type: "list",
+            message: "What is your position in the company",
+            name: "position",
+            choices: ['Intern', 'Engineer', 'Manager']
+        },
+        {
+            type: "input",
+            message: "What is your ID number?",
+            name: "ID"
+        },
+        {
+            type: "input",
+            message: "What is your email?",
+            name: "email"
+        }
+    ]).then(answers => {
+        employeeType.push(answers);
+        if (answer.position === 'Intern') {
+            typeIntern();
+        } else if (answer.position === 'Engineer') {
+            typeEngineer();
+        } else if (answer.position === 'Manager') {
+            typeManager();
+        }
+    })
+}
+
+function typeIntern() {
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "Which school do you go to?",
+            name: "school"
+        }
+    ]).then(answer => {
+        employeeCards.push(answer)
+    })
+}
+function typeEngineer() {
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "What is your github name?",
+            name: "github-name"
+        }
+    ])
+}
+function typeManager() {
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "What is your office number?",
+            name: "office-number"
+        }
+    ])
+}
+myTeamName();
 
 
 // After the user has input all employees desired, call the `render` function (required
