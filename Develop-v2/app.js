@@ -15,20 +15,16 @@ const render = require("./lib/htmlRenderer");
 // and to create objects for each team member (using the correct classes as blueprints!)
 var teamName = [];
 var employeeCards = [];
-function myTeamName() {
+var tempemployee;
+
+function employeeType() {
     inquirer.prompt([
         {
             type: "input",
             message: "What is your team name?",
-            name: "team-name"
-        }
-    ]).then(answer => {
-        teamName.push(answer)
-        employeeType();
-    })
-}
-function employeeType() {
-    inquirer.prompt([
+            name: "teamName"
+        },
+        
         {
             type: "list",
             message: "What is your position in the company",
@@ -46,14 +42,22 @@ function employeeType() {
             name: "email"
         }
     ]).then(answers => {
-        employeeType.push(answers);
-        if (answer.position === 'Intern') {
+        tempemployee=answers;
+        // employeeCards.push(answers);
+        // console.log(employeeCards)
+        // console.log(answers.position)
+        console.log("inside chk position fx")
+    if (answers.position === 'Intern') {
+        //console.log("intern");
             typeIntern();
-        } else if (answer.position === 'Engineer') {
+        } else if (answers.position === 'Engineer') {
+            //console.log("Engineer");
             typeEngineer();
-        } else if (answer.position === 'Manager') {
+        } else if (answers.position === 'Manager') {
+            //console.log("Manager");
             typeManager();
         }
+        //return answers.position;
     })
 }
 
@@ -65,7 +69,15 @@ function typeIntern() {
             name: "school"
         }
     ]).then(answer => {
-        employeeCards.push(answer)
+        //finished the last part of the temp obj
+        //{ position: 'Intern', ID: '1', email: 'email', school: 'school' }
+        tempemployee.school = answer.school;
+        console.log(tempemployee);
+        //then push final obj to array
+        //[ { position: 'Intern', ID: '1', email: 'email', school: 'school' } ]
+        employeeCards.push(tempemployee)
+        console.log(employeeCards)
+
     })
 }
 function typeEngineer() {
@@ -73,20 +85,43 @@ function typeEngineer() {
         {
             type: "input",
             message: "What is your github name?",
-            name: "github-name"
+            name: "githubName"
         }
-    ])
+    ]).then(answer => {
+        //finished the last part of the temp obj
+        //{ position: 'Intern', ID: '1', email: 'email', github: 'school' }
+        tempemployee.github = answer.githubName;
+        console.log(tempemployee);
+        //then push final obj to array
+        //[ { position: 'Intern', ID: '1', email: 'email', github: 'school' } ]
+        employeeCards.push(tempemployee)
+        console.log(employeeCards)
+
+    })
 }
 function typeManager() {
     inquirer.prompt([
         {
             type: "input",
             message: "What is your office number?",
-            name: "office-number"
+            name: "officeNumber"
         }
-    ])
+    ]).then(answer => {
+        //finished the last part of the temp obj
+        //{ position: 'Intern', ID: '1', email: 'email', officeNumber: 'school' }
+        tempemployee.officeNumber = answer.officeNumber;
+        console.log(tempemployee);
+        //then push final obj to array
+        //[ { position: 'Intern', ID: '1', email: 'email', officeNumber: 'school' } ]
+        employeeCards.push(tempemployee)
+        console.log(employeeCards)
+
+    })
 }
-myTeamName();
+
+var position=employeeType();
+
+
 
 
 // After the user has input all employees desired, call the `render` function (required
