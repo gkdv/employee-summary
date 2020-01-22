@@ -24,7 +24,11 @@ function employeeType() {
             message: "What is your team name?",
             name: "teamName"
         },
-        
+        {
+            type: "input",
+            message: "What is your name?",
+            name: "memberName"
+        },
         {
             type: "list",
             message: "What is your position in the company",
@@ -42,13 +46,13 @@ function employeeType() {
             name: "email"
         }
     ]).then(answers => {
-        tempemployee=answers;
+        tempemployee = answers;
         // employeeCards.push(answers);
         // console.log(employeeCards)
         // console.log(answers.position)
         console.log("inside chk position fx")
-    if (answers.position === 'Intern') {
-        //console.log("intern");
+        if (answers.position === 'Intern') {
+            //console.log("intern");
             typeIntern();
         } else if (answers.position === 'Engineer') {
             //console.log("Engineer");
@@ -119,7 +123,7 @@ function typeManager() {
     })
 }
 
-var position=employeeType();
+var position = employeeType();
 
 
 
